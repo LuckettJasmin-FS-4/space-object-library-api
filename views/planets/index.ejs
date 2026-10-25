@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planet Library</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🪐 Planet Library</h1>
+    <p>Explore and manage planets</p>
+  </header>
+
+  <main>
+    <a href="/">← Dashboard</a>
+
+    <h2>Planets</h2>
+    <p><a href="/planets/new">+ Add New Planet</a></p>
+
+    <div class="card-container">
+      <% if (planets.length === 0) { %>
+        <p>No planets yet. Add your first planet!</p>
+      <% } %>
+
+      <% planets.forEach(planet => { %>
+        <div class="card">
+
+          <% if (planet.image) { %>
+            <img src="<%= planet.image %>"
+                 alt="<%= planet.name %>">
+          <% } %>
+
+          <h3><%= planet.name %></h3>
+
+          <p>Size: <%= planet.size ?? 'Unknown' %></p>
+
+          <p>
+            Star:
+            <%= planet.stars.length
+              ? planet.stars.map(star => star.name).join(', ')
+              : 'Unassigned' %>
+          </p>
+
+          <p><%= planet.description %></p>
+
+          <div class="galaxy-actions">
+            <a class="action-button"
+               href="/planets/<%= planet.id %>/edit">
+              Edit
+            </a>
+
+            <form action="/planets/<%= planet.id %>?_method=DELETE"
+                  method="POST"
+                  onsubmit="return confirm('Delete this planet?');">
+              <button class="delete-button" type="submit">
+                Delete
+              </button>
+            </form>
+          </div>
+
+        </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+</html>

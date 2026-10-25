@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Planet</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🪐 Edit Planet</h1>
+  </header>
+
+  <main>
+    <form action="/planets/<%= planet.id %>?_method=PUT"
+          method="POST"
+          enctype="multipart/form-data">
+
+      <p>
+        <label for="name">Planet Name</label>
+        <input id="name"
+               name="name"
+               type="text"
+               value="<%= planet.name %>"
+               required>
+      </p>
+
+      <p>
+        <label for="size">Size</label>
+        <input id="size"
+               name="size"
+               type="number"
+               min="0"
+               value="<%= planet.size ?? '' %>">
+      </p>
+
+      <p>
+        <label for="description">Description</label>
+        <textarea id="description"
+                  name="description"><%= planet.description ?? '' %></textarea>
+      </p>
+
+      <p>
+        <label for="starId">Star</label>
+        <select id="starId" name="starId">
+          <option value="">Unassigned</option>
+          <% stars.forEach(star => { %>
+            <option value="<%= star.id %>"
+              <%= planet.stars.some(
+                selected => selected.id === star.id
+              ) ? 'selected' : '' %>>
+              <%= star.name %>
+            </option>
+          <% }) %>
+        </select>
+      </p>
+
+      <% if (planet.image) { %>
+        <p>Current Image</p>
+        <img src="<%= planet.image %>"
+             alt="<%= planet.name %>"
+             style="max-width:250px; border-radius:10px;">
+      <% } %>
+
+      <p>
+        <label for="image">Upload New Image</label>
+        <input id="image"
+               type="file"
+               name="image"
+               accept="image/jpeg,image/png,image/webp">
+      </p>
+
+      <button type="submit">Save Changes</button>
+    </form>
+
+    <p><a href="/planets">← Back to Planets</a></p>
+  </main>
+</body>
+</html>

@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       size: DataTypes.INTEGER,
       description: DataTypes.TEXT,
       galaxyId: DataTypes.INTEGER,
+      image: DataTypes.STRING,
     },
     {
       sequelize,

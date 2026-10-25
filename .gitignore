@@ -1,5 +1,12 @@
 node_modules/
 .env
+.env.*
+!.env.example
+
 database.sqlite
 database.sqlite-journal
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+
 .DS_Store

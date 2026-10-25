@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Library</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>⭐ Star Library</h1>
+    <p>Explore and manage stars</p>
+  </header>
+
+  <main>
+    <a href="/">← Dashboard</a>
+    <h2>Stars</h2>
+    <p><a href="/stars/new">+ Add New Star</a></p>
+
+    <div class="card-container">
+      <% if (stars.length === 0) { %>
+        <p>No stars yet. Add your first star!</p>
+      <% } %>
+
+      <% stars.forEach(star => { %>
+        <div class="card">
+          <% if (star.image) { %>
+            <img src="<%= star.image %>"
+                 alt="<%= star.name %>">
+          <% } %>
+
+          <h3><%= star.name %></h3>
+          <p>Size: <%= star.size ?? 'Unknown' %></p>
+          <p>Galaxy: <%= star.galaxy ? star.galaxy.name : 'Unassigned' %></p>
+          <p><%= star.description %></p>
+
+          <div class="galaxy-actions">
+            <a class="action-button"
+               href="/stars/<%= star.id %>/edit">Edit</a>
+
+            <form action="/stars/<%= star.id %>?_method=DELETE"
+                  method="POST"
+                  onsubmit="return confirm('Delete this star?');">
+              <button class="delete-button" type="submit">
+                Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+</html>

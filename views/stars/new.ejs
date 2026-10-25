@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Star</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header><h1>⭐ Add New Star</h1></header>
+
+  <main>
+    <form action="/stars" method="POST"
+          enctype="multipart/form-data">
+
+      <p>
+        <label for="name">Star Name</label>
+        <input id="name" name="name" type="text" required>
+      </p>
+
+      <p>
+        <label for="size">Size</label>
+        <input id="size" name="size" type="number" min="0">
+      </p>
+
+      <p>
+        <label for="description">Description</label>
+        <textarea id="description" name="description"></textarea>
+      </p>
+
+      <p>
+        <label for="galaxyId">Galaxy</label>
+        <select id="galaxyId" name="galaxyId">
+          <option value="">Unassigned</option>
+          <% galaxies.forEach(galaxy => { %>
+            <option value="<%= galaxy.id %>">
+              <%= galaxy.name %>
+            </option>
+          <% }) %>
+        </select>
+      </p>
+
+      <p>
+        <label for="image">Star Image</label>
+        <input id="image" type="file" name="image"
+               accept="image/jpeg,image/png,image/webp">
+      </p>
+
+      <button type="submit">Save Star</button>
+    </form>
+
+    <p><a href="/stars">← Back to Stars</a></p>
+  </main>
+</body>
+</html>

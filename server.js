@@ -1,19 +1,35 @@
-
 const express = require('express');
+const path = require('path');
+const methodOverride = require('method-override');
 const { sequelize, Galaxy, Star, Planet } = require('./models');
+const galaxyRoutes = require('./routes/galaxies');
+const starRoutes = require('./routes/stars');
+const planetRoutes = require('./routes/planets');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Parse JSON requests
 app.use(express.json());
 
-// API home
+// Parse HTML form submissions
+app.use(express.urlencoded({ extended: true }));
+
+// Support PUT and DELETE from HTML forms
+app.use(methodOverride('_method'));
+
+// Configure EJS template engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Serve CSS and uploaded images
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Space Library Tracker dashboard
 app.get('/', (req, res) => {
-  res.json({
-    message: 'Space Object Library API',
-    resources: ['/api/galaxies', '/api/stars', '/api/planets']
+    res.render('index');
   });
-});
 
 // Helper to create CRUD endpoints
 function registerRoutes(path, Model, include = []) {
@@ -84,6 +100,14 @@ function registerRoutes(path, Model, include = []) {
     }
   });
 }
+
+// Browser-based Galaxy management
+app.use('/galaxies', galaxyRoutes);
+
+// Browser-based Star management
+app.use('/stars', starRoutes);
+
+app.use('/planets', planetRoutes);
 
 // Register all three resources
 registerRoutes('/api/galaxies', Galaxy, [

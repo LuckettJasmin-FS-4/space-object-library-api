@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galaxies | Space Library Tracker</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🌌 Galaxy Library</h1>
+    <p>Manage your galaxies</p>
+  </header>
+
+  <main>
+    <a href="/">← Dashboard</a>
+    <h2>Galaxies</h2>
+    <p><a href="/galaxies/new">+ Add New Galaxy</a></p>
+
+    <div class="card-container">
+      <% if (galaxies.length === 0) { %>
+        <p>No galaxies yet. Add your first galaxy!</p>
+      <% } %>
+
+      <% galaxies.forEach(galaxy => { %>
+        <div class="card">
+          <% if (galaxy.image) { %>
+            <img
+              src="<%= galaxy.image %>"
+              alt="<%= galaxy.name %>"
+              style="width:100%; border-radius:10px;"
+            >
+          <% } %>
+          <h3><%= galaxy.name %></h3>
+          <p>Size: <%= galaxy.size ?? 'Unknown' %></p>
+          <p><%= galaxy.description %></p>
+          <div class="galaxy-actions">
+            <a class="action-button"
+               href="/galaxies/<%= galaxy.id %>/edit">
+              Edit
+            </a>
+          
+            <form action="/galaxies/<%= galaxy.id %>?_method=DELETE"
+                  method="POST"
+                  onsubmit="return confirm('Delete this galaxy?');">
+              <button class="delete-button" type="submit">
+                Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+</html>

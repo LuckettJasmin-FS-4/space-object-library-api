@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Planet</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🪐 Add New Planet</h1>
+  </header>
+
+  <main>
+    <form action="/planets"
+          method="POST"
+          enctype="multipart/form-data">
+
+      <p>
+        <label for="name">Planet Name</label>
+        <input id="name" name="name" type="text" required>
+      </p>
+
+      <p>
+        <label for="size">Size</label>
+        <input id="size" name="size" type="number" min="0">
+      </p>
+
+      <p>
+        <label for="description">Description</label>
+        <textarea id="description" name="description"></textarea>
+      </p>
+
+      <p>
+        <label for="starId">Star</label>
+        <select id="starId" name="starId">
+          <option value="">Unassigned</option>
+          <% stars.forEach(star => { %>
+            <option value="<%= star.id %>">
+              <%= star.name %>
+            </option>
+          <% }) %>
+        </select>
+      </p>
+
+      <p>
+        <label for="image">Planet Image</label>
+        <input id="image"
+               type="file"
+               name="image"
+               accept="image/jpeg,image/png,image/webp">
+      </p>
+
+      <button type="submit">Save Planet</button>
+    </form>
+
+    <p><a href="/planets">← Back to Planets</a></p>
+  </main>
+</body>
+</html>

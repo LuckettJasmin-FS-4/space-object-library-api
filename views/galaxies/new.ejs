@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Galaxy | Space Library Tracker</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🌌 Add New Galaxy</h1>
+  </header>
+
+  <main>
+    <form action="/galaxies" method="POST"
+      enctype="multipart/form-data">
+      <p>
+        <label for="name">Galaxy Name</label>
+        <input id="name" type="text" name="name" required>
+      </p>
+
+      <p>
+        <label for="size">Galaxy Size</label>
+        <input id="size" type="number" name="size" min="0">
+      </p>
+
+      <p>
+        <label for="description">Description</label>
+        <textarea id="description" name="description"></textarea>
+      </p>
+      <p>
+        <label for="image">Galaxy Image</label>
+        <input
+          type="file"
+          id="image"
+          name="image"
+          accept="image/jpeg,image/png,image/webp"
+        >
+      </p>
+      <button type="submit">Save Galaxy</button>
+    </form>
+
+    <p><a href="/galaxies">← Back to Galaxies</a></p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Galaxy | Space Library Tracker</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🌌 Edit Galaxy</h1>
+  </header>
+
+  <main>
+    <form action="/galaxies/<%= galaxy.id %>?_method=PUT"
+          method="POST"
+          enctype="multipart/form-data">
+
+      <p>
+        <label for="name">Galaxy Name</label>
+        <input type="text" id="name" name="name"
+               value="<%= galaxy.name %>" required>
+      </p>
+
+      <p>
+        <label for="size">Galaxy Size</label>
+        <input type="number" id="size" name="size"
+               min="0" value="<%= galaxy.size ?? '' %>">
+      </p>
+
+      <p>
+        <label for="description">Description</label>
+        <textarea id="description"
+                  name="description"><%= galaxy.description ?? '' %></textarea>
+      </p>
+      <% if (galaxy.image) { %>
+        <p>Current image:</p>
+        <img src="<%= galaxy.image %>"
+             alt="<%= galaxy.name %>"
+             style="max-width:250px; border-radius:10px;">
+      <% } %>
+      
+      <p>
+        <label for="image">Upload New Image</label>
+        <input type="file" id="image" name="image"
+               accept="image/jpeg,image/png,image/webp">
+      </p>
+      <button type="submit">Save Changes</button>
+    </form>
+
+    <p><a href="/galaxies">← Back to Galaxies</a></p>
+  </main>
+</body>
+</html>
